@@ -12,15 +12,21 @@ steps:
     versionSpec: '3.x'
     addToPath: true
 
+# Paso para instalar distutils y dependencias
 - script: |
+    sudo apt-get update
+    sudo apt-get install -y python3-distutils
+    python -m pip install --upgrade pip
     pip install -r requirements.txt
-    pytest
-  displayName: 'Instalar dependencias y ejecutar pruebas'
+  displayName: 'Instalar dependencias y distutils'
 
+# Paso para ejecutar el entrenamiento del modelo
 - script: |
     python train.py
   displayName: 'Entrenar el modelo'
 
+# Paso para ejecutar las pruebas unitarias
 - script: |
     python -m pytest tests/
   displayName: 'Ejecutar pruebas unitarias'
+
